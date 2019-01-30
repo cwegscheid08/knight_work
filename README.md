@@ -5,6 +5,10 @@
 For this project I will need a few classes.  A board class, which will build the board as well as hold the piece location.  It will also need a knight class which will contain the way the piece moves as well as build a binary tree of the possible moves available to the piece based on it's location.
 
 
+## WORKING THOUGHTS
+
+In preperation for the upcoming chess project, I am also creating a GamePiece class which will be the parent class to the Knight class. This will limit the amount to require in the Board class and will make it easier to create extra game pieces later on.
+
 
 
 ### CLASSES
@@ -33,6 +37,10 @@ This will have to build a binary search tree of moves, based on the current loca
 			(+2,-1)
 
 When each possibility is being generated, if the possibily is either < 0 or > 8 it will not be recorded withing the tree. Then, using a depth first search method, you can determine the shortest distance from your current cell to any of the other adjacent cells
+
+#### GAME_PIECES
+
+This will be the parent class to the Knight class. It will be where the basic steps to create a binary tree of moves will be created and housed.  The Knight class itself will just hold that the Knight can move 2 spaces up and 1 to the side in any direction and apply that to it's inherited BST creation method.  This will make creating more pieces later on much easier, in that they will just have to house their move capabilities and not the actual recursive methods within them.
 
 
 
