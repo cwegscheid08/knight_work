@@ -2,5 +2,5 @@ require './lib/board.rb'
 
 
 def set_knight
-	knight = Board.new
+	return Board.new
 end

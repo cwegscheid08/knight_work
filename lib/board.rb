@@ -1,6 +1,6 @@
 class Board
-	attr_accessor :board
-	require './lib/game_piece.rb'
+	attr_accessor :board, :pieces
+	require './lib/game_pieces.rb'
 
 
 	def initialize
@@ -9,12 +9,26 @@ class Board
 	end
 
 	def build_board
-		row = []
-		row.8.times.push(nil)
-		puts "ROW:#{row.to_s}"
+		row = {}
+		column = {}
+		x = 0
+		y = 0
+		8.times do
+			8.times do 
+				row[[x,y]] = nil
+				y+=1
+			end
+			y = 0
+			column["Row #{x}"] = row
+			row = {}
+			x+=1
+		end
+		@board = column
 	end
 
 	def set_game_pieces
-
+		@pieces = GamePieces.new()
+		@pieces.build_pieces
+		@pieces.knight.available_moves
 	end
 end
