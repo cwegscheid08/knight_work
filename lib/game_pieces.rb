@@ -3,51 +3,49 @@ class GamePieces
 
 	require './lib/knight.rb'
 
-	def initialize(location = nil, move_type = nil)
+	def initialize(location = nil)
 		@location = location
 		@move_type = move_type
 	end
 
-	def available_moves(jump = self.move_type)
-		puts "JUMP:#{jump}\n"
-		# return jump if jump[0][0] < 0 || jump [0][0] > 7
-		# return jump if jump[0][1] < 0 || jump [0][1] > 7
-		return jump if jump.size == 1
+	def available_moves(destination, spot = @location, next_jumps = [])
+		return spot if spot[0] == destination[0] && spot[1] == destination[1]
 
-		left_jump = available_moves(jump.slice!(0, jump.size/2))
-		right_jump = available_moves(jump)
+		
 
-		puts "LOCATION:#{@location}"
-
-		spot = @location
-
-		spot[0]+=left_jump[0][0]
-		spot[1]+=left_jump[0][1]
-
-		if spot[0] > 0 && spot[0] < 7 && spot[1] > 0 && spot[1] < 7
-			@next_available_move = spot
+		move_type.each do |jump|
+			temp_spot = []
+			# puts "JUMP:#{jump} SPOT:#{spot} LOCATION:#{@location}"
+			temp_spot[0] = jump[0] + spot[0]
+			temp_spot[1] = jump[1] + spot[1]
+			
+			# puts "JUMP:#{jump} SPOT:#{spot} TEMP_SPOT:#{temp_spot} LOCATION:#{@location}"
+			on_board?(temp_spot) ? next_jumps.push(temp_spot) : ""
+			if temp_spot[0] == destination[0] && temp_spot[1] == destination[1]
+				puts next_jumps.to_s
+				return temp_spot
+			end
+			
+			# on_board?(temp_spot) ? available_moves(destination, temp_spot) : "" 
 		end
-		puts "SPOT:#{spot} LEFT_JUMP:#{left_jump} RIGHT_JUMP:#{right_jump} LOCATION:#{@location}"
 
-		spot = @location
+		# puts "NEXT_JUMPS:#{next_jumps}"
+		available_moves(destination, next_jumps.shift, next_jumps)
 
-		puts "SPOT:#{spot}"
-
-		spot[0]+=right_jump[0][0]
-		spot[1]+=right_jump[0][1]
-
-		if spot[0] > 0 && spot[0] < 7 && spot[1] > 0 && spot[1] < 7
-			@next_available_move = spot
-		end
-		puts "SPOT:#{spot} LEFT_JUMP:#{left_jump} RIGHT_JUMP:#{right_jump}"
-
-		puts "JUMP:#{jump} NEXT_AVAILABLE_MOVE#{next_available_move}"
-		spot
 	end
 
-	def build_pieces
+	def on_board?(jump)
+		# puts "JUMP:#{jump}"
+		# puts jump[0] >= 0 && jump[0] <= 7 && jump[1] >= 0 && jump[1] <= 7
+		if jump[0] >= 0 && jump[0] <= 7 && jump[1] >= 0 && jump[1] <= 7
+			return true
+		end
+		false
+	end
+
+	def place_pieces
 		@knight = Knight.new([3,3])
-		puts "KNIGHT:#{@knight} MOVE_TYPE:#{@knight.move_type}"
+		# puts "KNIGHT:#{@knight} MOVE_TYPE:#{@knight.move_type}"
 	end
 
 end

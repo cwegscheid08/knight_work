@@ -28,7 +28,7 @@ class Board
 
 	def set_game_pieces
 		@pieces = GamePieces.new()
-		@pieces.build_pieces
-		@pieces.knight.available_moves
+		@pieces.place_pieces
+		@pieces.knight.knight_moves([4,3])
 	end
 end
