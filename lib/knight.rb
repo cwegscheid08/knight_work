@@ -11,7 +11,7 @@ class Knight < GamePieces
 		available_moves(destination)
 	end
 
-	def available_moves(destination, spot = @location, next_jumps = [])
+	def available_moves(destination, spot = @location, next_jumps = [], trail = {})
 		# puts "TWO UP AND ONE OVER!"
 		super
 	end 
