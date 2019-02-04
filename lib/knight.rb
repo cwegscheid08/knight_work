@@ -7,12 +7,17 @@ class Knight < GamePieces
 	end
 
 	def knight_moves(destination)
-		# puts "LOCATION:#{self.location} DESTINATION:#{destination}"
-		available_moves(destination)
+		moves = available_moves(destination)
+
+		puts "YOU'RE AT #{self.location}"
+
+	end
+
+	def set_path(destination, ary = [])
+		super
 	end
 
 	def available_moves(destination, spot = @location, next_jumps = [], trail = {})
-		# puts "TWO UP AND ONE OVER!"
 		super
 	end 
 

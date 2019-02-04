@@ -26,9 +26,20 @@ class Board
 		@board = column
 	end
 
+	def display
+		@board.each do |key, value|
+			puts "\nKEY:#{key} VALUE:#{value}\n"
+			puts
+		end
+	end
+
 	def set_game_pieces
 		@pieces = GamePieces.new()
 		@pieces.place_pieces
-		@pieces.knight.knight_moves([4,3])
+		set_board
+	end
+
+	def set_board
+		@board["Row #{@pieces.knight.location[0]}"][@pieces.knight.location] = @pieces.knight
 	end
 end
